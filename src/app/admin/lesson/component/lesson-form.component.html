@@ -1,0 +1,106 @@
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Ders İşlem Sayfası</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a routerLink="/home" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{exact:true}">Ana Sayfa</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/lesson/" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{exact:true}">Ders Listesi</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <form #lessonForm="ngForm">
+                <div class="card-body">
+                    <div class="form-group mb-2">
+                        <label for="">Ders Adı</label>
+                        <input type="text" class="form-control" name="txtName" [(ngModel)]="lesson.name"
+                            #txtName="ngModel" required>
+                        <small class="text-danger" *ngIf="txtName.invalid && txtName.touched">Zorunlu Alan</small>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="">Ders Kodu</label>
+                        <input type="text" class="form-control" name="txtCode" [(ngModel)]="lesson.code"
+                            #txtCode="ngModel" required>
+                        <small class="text-danger" *ngIf="txtCode.invalid && txtCode.touched">Zorunlu Alan</small>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="">Kredi</label>
+                        <input type="number" class="form-control" name="txtCredit" [(ngModel)]="lesson.credit"
+                            #txtCredit="ngModel" required>
+                        <small class="text-danger" *ngIf="txtCredit.invalid && txtCredit.touched">Zorunlu Alan</small>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="">Akts</label>
+                        <input type="number" class="form-control" name="txtAkts" [(ngModel)]="lesson.akts"
+                            #txtAkts="ngModel" required>
+                        <small class="text-danger" *ngIf="txtAkts.invalid && txtAkts.touched">Zorunlu Alan</small>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <label for="">Bölüm Seçiniz</label>
+                        <select name="slcDepartment" class="form-control form-select" [(ngModel)]="lesson.departmentId"
+                            #slcDepartment="ngModel" required>
+                            <option *ngFor="let item of departments" value="{{item.id}}">{{item.name}}</option>
+                        </select>
+                        <small class="text-danger" *ngIf="slcDepartment.invalid && slcDepartment.touched">Zorunlu
+                            Alan</small>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="">Ders Hocası Seçiniz</label>
+                        <select name="slcStaff" class="form-control form-select" [(ngModel)]="lesson.stuffId"
+                            #slcStaff="ngModel" required>
+                            <option *ngFor="let item of staffs" value="{{item.id}}">{{item.firstName}} {{item.lastName}}
+                            </option>
+                        </select>
+                        <small class="text-danger" *ngIf="slcStaff.invalid && slcStaff.touched">Zorunlu
+                            Alan</small>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="">Dönem Seçiniz</label>
+                        <select name="slcSemester" class="form-control form-select" [(ngModel)]="lesson.semesterId"
+                            #slcSemester="ngModel" required>
+                            <option *ngFor="let item of semesters" value="{{item.id}}">{{item.name}}</option>
+                        </select>
+                        <small class="text-danger" *ngIf="slcSemester.invalid && slcSemester.touched">Zorunlu
+                            Alan</small>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="">Yarıyıl Seçiniz</label>
+                        <select name="slcPeriod" class="form-control form-select" [(ngModel)]="periodNumber" #slcPeriod="ngModel" required>
+                            <option *ngFor="let item of periods" value="{{item.id}}">{{item.name}}</option>
+
+                        </select>
+                        <small class="text-danger" *ngIf="slcPeriod.invalid && slcPeriod.touched">Zorunlu Alan</small>
+                    </div>
+                    
+                </div>
+                <div class="card-footer">
+                    <div style="display:flex;justify-content: end;">
+                        <button class="btn btn-success btn-sm" title="Kaydet" [disabled]="!lessonForm.form.valid"
+                            (click)="save()"><i class="fas fa-check"></i></button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+</div>

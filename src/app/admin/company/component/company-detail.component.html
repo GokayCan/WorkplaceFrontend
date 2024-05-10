@@ -1,0 +1,298 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Şirket Detay Sayfası</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a routerLink="/home" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact:true}">Ana Sayfa</a></li>
+            <li class="breadcrumb-item"><a routerLink="/company/" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact:true}">Şirket Listesi</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="card">
+      <div class="card-header">
+        Sorumlu Kişi Bilgileri
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row col-12">
+          <div class="col-10">
+            <button class="btn btn-primary mr-2 btn-sm" title="Yeni Ekle" data-bs-toggle="modal"
+              data-bs-target="#companyResponsibleModal"><i class="fas fa-plus"></i></button>
+          </div>
+          <div class="col-2">
+            <input type="text" class="form-control" [(ngModel)]="filterTextResponsible"
+              [ngModelOptions]="{standalone:true}">
+          </div>
+        </div>
+        <table class="table table-stripped table-hovered mt-2" style="text-align: center;">
+          <thead>
+            <tr>
+              <th>Sorumlu Kişi Adı</th>
+              <th>Departman Adı</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of companyResponsibles | companyResponsiblePipe : filterTextResponsible">
+              <td>{{item.userName}}</td>
+              <td>{{item.departmentName}}</td>
+              <td>
+                <button class="btn btn-warning btn-sm mr-2" title="Düzenle" (click)="getCompanyResponsible(item.id)"
+                  data-bs-toggle="modal" data-bs-target="#companyResponsibleModal"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger btn-sm" title="Sil" (click)="companyResponsibleDelete(item)"><i
+                    class="fas fa-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="card">
+      <div class="card-header">
+        Protokol Personel Bilgileri
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row col-12">
+          <div class="col-10">
+            <button class="btn btn-primary mr-2 btn-sm" title="Yeni Ekle" data-bs-toggle="modal"
+              data-bs-target="#companyStaffModal"><i class="fas fa-plus"></i></button>
+          </div>
+          <div class="col-2">
+            <input type="text" class="form-control" [(ngModel)]="filterTextStaff" [ngModelOptions]="{standalone:true}">
+          </div>
+        </div>
+        <table class="table table-stripped table-hovered mt-2" style="text-align: center;">
+          <thead>
+            <tr>
+              <th>Personel Adı</th>
+              <th>Departman Adı</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of companyStaffs | companyStaffPipe : filterTextStaff">
+              <td>{{item.userName}}</td>
+              <td>{{item.departmentName}}</td>
+              <td>
+                <button class="btn btn-warning btn-sm mr-2" title="Düzenle" (click)="getCompanyStaff(item.id)"
+                  data-bs-toggle="modal" data-bs-target="#companyStaffModal"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger btn-sm" title="Sil" (click)="companyStaffDelete(item)"><i
+                    class="fas fa-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        Öğrenci Bilgileri
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row col-12">
+          <div class="col-10">
+            <button class="btn btn-primary mr-2 btn-sm" title="Yeni Ekle" data-bs-toggle="modal"
+              data-bs-target="#companyStudentModal"><i class="fas fa-plus"></i></button>
+          </div>
+          <div class="col-2">
+            <input type="text" class="form-control" [(ngModel)]="filterTextStudent"
+              [ngModelOptions]="{standalone:true}">
+          </div>
+        </div>
+        <table class="table table-stripped table-hovered mt-2" style="text-align: center;">
+          <thead>
+            <tr>
+              <th>Öğrenci Adı</th>
+              <th>Öğrenci Numarası</th>
+              <th>Öğrenci Emaili</th>
+              <th>Departman Adı</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of companyStudents | companyStudentPipe : filterTextStudent">
+              <td>{{item.userName}}</td>
+              <td>{{item.number}}</td>
+              <td>{{item.email}}</td>
+              <td>{{item.departmentName}}</td>
+              <td>
+                <button class="btn btn-warning btn-sm mr-2" title="Düzenle" (click)="getCompanyStudent(item.id)"
+                  data-bs-toggle="modal" data-bs-target="#companyStudentModal"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger btn-sm" title="Sil" (click)="companyStudentDelete(item)"><i
+                    class="fas fa-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </section>
+</div>
+
+
+<div class="modal fade" #companyStaffModal id="companyStaffModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Protokol Personel</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="clearCompanyStaff()"></button>
+      </div>
+      <form #companyStaffForm="ngForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="selectPersonel">Personel Seçin</label>
+            <ngx-select [formControl]="selectControlStaff" [allowClear]="true" [items]="mappedStaff"
+              optionValueField="optionId" optionTextField="optionTitle" (ngModelChange)="changeStaffId()"
+              placeholder="Personel Seçin">
+            </ngx-select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Çıkış"
+            (click)="clearCompanyStaff()"><i class="fas fa-times"></i></button>
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal" title="Kaydet"
+            (click)="saveCompanyStaff()" [disabled]="!companyStaffForm.valid"><i class="fas fa-check"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" #companyResponsibleModal id="companyResponsibleModal" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Sorumlu Kişi</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="clearCompanyResponsible()"></button>
+      </div>
+      <form #companyResponsibleForm="ngForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="selectResponsible">Sorumlu Seçin</label>
+
+            <ngx-select [formControl]="selectControlResponsible" [allowClear]="true" [items]="mappedStaff"
+              optionValueField="optionId" optionTextField="optionTitle" (ngModelChange)="changeResponsibleId()"
+              placeholder="Sorumlu Kişi Seçin">
+            </ngx-select>
+
+            <!-- <select class="form-control" id="selectResponsible" name="selectResponsible"
+              [(ngModel)]="companyResponsible.responsibleId" required>
+              <option *ngFor="let staff of staffs" [value]="staff.id">{{ staff.firstName + " " + staff.lastName }}
+              </option>
+            </select> -->
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Çıkış"
+            (click)="clearCompanyResponsible()"><i class="fas fa-times"></i></button>
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal" title="Kaydet"
+            (click)="saveCompanyResponsible()" [disabled]="!companyResponsibleForm.valid"><i
+              class="fas fa-check"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" #companyStudentModal id="companyStudentModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Öğrenci</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="clearCompanyStudent()"></button>
+      </div>
+      <form #companyStudentForm="ngForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="selectStudent">Departman Seçin</label>
+
+            <ngx-select id="selectDepartment" [formControl]="selectControlDepartment" [allowClear]="true"
+              [items]="mappedDepartments" optionValueField="optionId" optionTextField="optionTitle"
+              (ngModelChange)="getStudents(selectControlDepartment.value)" placeholder="Departman Seçin">
+            </ngx-select>
+
+            <!-- <select class="form-control" id="selectStudent" name="selectStudent"
+              [(ngModel)]="companyStudent.studentId" required>
+              <option *ngFor="let student of students" [value]="student.id">
+                {{ student.firstName + " " + student.lastName + " / " + student.number }}
+              </option>
+            </select> -->
+          </div>
+          <div class="form-group">
+            <label for="selectStudent">Öğrenci Seçin</label>
+
+            <ngx-select [formControl]="selectControlStudent" [allowClear]="true" [items]="mappedStudents"
+              optionValueField="optionId" optionTextField="optionTitle" (ngModelChange)="changeStudentId()"
+              placeholder="Öğrenci Seçin">
+            </ngx-select>
+
+            <!-- <select class="form-control" id="selectStudent" name="selectStudent"
+              [(ngModel)]="companyStudent.studentId" required>
+              <option *ngFor="let student of students" [value]="student.id">
+                {{ student.firstName + " " + student.lastName + " / " + student.number }}
+              </option>
+            </select> -->
+          </div>
+        </div>
+
+        <div class="ml-1 mr-1">
+          <div [ngxSummernote]="config" name="studentComment" [(ngModel)]="companyStudent.comment" class="form-control" ngModel #studentComment="ngModel"></div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Çıkış"
+            (click)="clearCompanyStudent()"><i class="fas fa-times"></i></button>
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal" title="Kaydet"
+            (click)="saveCompanyStudent()" [disabled]="!companyStudentForm.valid"><i class="fas fa-check"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

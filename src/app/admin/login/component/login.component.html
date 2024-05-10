@@ -1,0 +1,35 @@
+<div class="hold-transition login-page">
+  <div class="login-box">
+    <div class="card card-outline card-primary">
+      <div class="card-header text-center">
+        <a href="" class="h1"><b>Workplace</b></a>
+      </div>
+      <div class="card-body">
+        <form #loginForm="ngForm" method="post">
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Mail Adresi" ngModel name="email" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" placeholder="Şifre" ngModel name="password" required>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button type="submit" [disabled]="!loginForm.valid" (click)="login(loginForm.value)" class="btn btn-outline-primary btn-block">Giriş</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>

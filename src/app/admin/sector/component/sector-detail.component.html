@@ -1,0 +1,110 @@
+<div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Şirket Listeleme Sayfası:Toplam {{data.length}} şirket</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a routerLink="/home" routerLinkActive="active"
+                  [routerLinkActiveOptions]="{exact:true}">Ana Sayfa</a></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <section class="content">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row col-12">
+            <div class="col-10">
+              <a class="btn btn-primary mr-2 btn-sm" title="Yeni Ekle" routerLink="/company/add"><i class="fas fa-plus"></i></a>
+              <button class="btn btn-secondary btn-sm" title="Excele Aktar"><i class="fas fa-file-excel"></i></button>
+            </div>
+            <div class="row">
+              <label for="txtCompany" class="col-form-label col-md-2 pr-0">Şirket Ara</label>
+              <div class="col-md-10">
+                <input type="text" id="txtCompany" class="form-control mb-3" name="txtCompany" (keyup)="applyFilter()"
+                  placeholder="Şirket Adı Giriniz" [(ngModel)]="filterText" #txtCity="ngModel">
+              </div>
+            </div>
+          </div>
+          <!-- <table class="table table-hovered mt-2" id="excel-table" hidden>
+              <thead>
+                <tr>
+                  <th>Şehir Adı</th>
+                </tr>
+              </thead>
+              <tbody>
+  
+              </tbody>
+            </table> -->
+  
+          <table class="table table-responsive table-stripped table-hovered mt-2" style="text-align: center;">
+            <thead>
+              <tr>
+                <th>Sıra</th>
+                <th>Şirket</th>
+                <th>Web Sayfası</th>
+                <th>Sorumlu Adı</th>
+                <th>Sorumlu Numarası</th>
+                <th>Telefon Numarası</th>
+                <th>Adresi</th>
+                <th>Protokol Personel</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let item of data|sectorPipe: filterText| paginate:{itemsPerPage: pageSize,currentPage: currentPage,totalItems: totalItems};let index = index">
+                <td class="col-1 align-middle">{{ (currentPage - 1) * pageSize + index + 1 }}</td>
+                <td>{{item.name}}</td>
+                <td>{{item.webPage}}</td>
+                <td>{{item.responsibleName}}</td>
+                <td>{{item.responsiblePhoneNumber}}</td>
+                <td>{{item.phoneNumber}}</td>
+                <td>{{item.address}}</td>
+                <td>{{item.protocolPersonel}}</td>
+                <td>
+                  <div class="btn-group" role="group">
+                    <button class="btn btn-info btn-sm mr-2" title="Detay" routerLink="/company/detail/{{item.id}}"><i
+                      class="fas fa-eye"></i></button>
+                    <button class="btn btn-warning btn-sm mr-2" title="Düzenle" routerLink="/company/edit/{{item.id}}"><i
+                        class="fas fa-edit"></i></button>
+                    <button class="btn btn-danger btn-sm" title="Sil" (click)="delete(item)"><i
+                        class="fas fa-trash"></i></button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination d-flex align-items-center">
+          <pagination-controls (pageChange)="changePage($event)" previousLabel="Önceki" nextLabel="Sonraki"
+            boundaryLinks="true"></pagination-controls>
+  
+          <label for="page-size-select" class="ml-2 mb-3">Sayfa Boyutu:</label>
+          <select class="form-select-sm ml-1 mb-3" id="page-size-select" [(ngModel)]="pageSize">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
+          </select>
+        </div>
+      </div>
+    </section>
+  </div>
+  

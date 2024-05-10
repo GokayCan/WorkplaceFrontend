@@ -1,0 +1,72 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Program Listeleme Sayfası</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Ana Sayfa</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row col-12">
+          <div class="col-10">
+            <a class="btn btn-primary mr-2 btn-sm" title="Yeni Ekle" routerLink="add"><i
+                class="fas fa-plus"></i></a>
+          </div>
+          <div class="col-2">
+            <input type="text" class="form-control" [(ngModel)]="filterText" [ngModelOptions]="{standalone:true}">
+          </div>
+        </div>
+        <table class="table table-stripped table-hovered mt-2" style="text-align: center;" >
+          <thead>
+            <tr>
+              <th>Program Adı</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of data|programmingPipe:filterText| paginate:{itemsPerPage: pageSize,currentPage: currentPage,totalItems: totalItems};let index = index">
+              <td>{{item.name}}</td>
+              <td>
+                <a class="btn btn-warning btn-sm mr-2" title="Düzenle" routerLink="edit/{{item.id}}"><i class="fas fa-edit"></i></a>
+                <button class="btn btn-danger btn-sm" title="Sil" (click)="delete(item)"><i class="fas fa-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="pagination d-flex align-items-center">
+        <pagination-controls (pageChange)="changePage($event)" previousLabel="Önceki" nextLabel="Sonraki"
+          boundaryLinks="true"></pagination-controls>
+
+        <label for="page-size-select" class="ml-2 mb-3">Sayfa Boyutu:</label>
+        <select class="form-select-sm ml-1 mb-3" id="page-size-select" [(ngModel)]="pageSize">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="15">15</option>
+          <option value="20">20</option>
+          <option value="25">25</option>
+        </select>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,445 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Öğrenci Detay Sayfası</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a routerLink="/home" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact:true}">Ana Sayfa</a></li>
+            <li class="breadcrumb-item"><a routerLink="/student/" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact:true}">Öğrenci Listesi</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="card">
+      <div class="card-header">
+        Öğrenci İlgi Alanları
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row col-12">
+          <div class="col-10">
+            <button class="btn btn-primary mr-2 btn-sm" title="Yeni Ekle" data-bs-toggle="modal"
+              data-bs-target="#studentInterestModal" (click)="clearStudentInterest()"><i
+                class="fas fa-plus"></i></button>
+          </div>
+          <div class="col-2">
+            <input type="text" class="form-control" [(ngModel)]="filterTextInterest"
+              [ngModelOptions]="{standalone:true}">
+          </div>
+        </div>
+        <table class="table table-stripped table-hovered mt-2" style="text-align: center;">
+          <thead>
+            <tr>
+              <th>İlgi Alanı</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of studentInterests | studentInterestPipe : filterTextInterest">
+              <td>{{item.interestName}}</td>
+              <td>
+                <button class="btn btn-warning btn-sm mr-2" title="Düzenle" (click)="getStudentInterest(item.id)"
+                  data-bs-toggle="modal" data-bs-target="#studentInterestModal"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger btn-sm" title="Sil" (click)="studentInterestDelete(item)"><i
+                    class="fas fa-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        Öğrenci Dil Bilgileri
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row col-12">
+          <div class="col-10">
+            <button class="btn btn-primary mr-2 btn-sm" title="Yeni Ekle" data-bs-toggle="modal"
+              data-bs-target="#studentLanguageModal" (click)="clearStudentLanguage()"><i
+                class="fas fa-plus"></i></button>
+          </div>
+          <div class="col-2">
+            <input type="text" class="form-control" [(ngModel)]="filterTextLanguage"
+              [ngModelOptions]="{standalone:true}">
+          </div>
+        </div>
+        <table class="table table-stripped table-hovered mt-2" style="text-align: center;">
+          <thead>
+            <tr>
+              <th>Dil</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of studentLanguages | studentLanguagePipe : filterTextLanguage">
+              <td>{{item.languageName}}</td>
+              <td>
+                <button class="btn btn-warning btn-sm mr-2" title="Düzenle" (click)="getStudentLanguage(item.id)"
+                  data-bs-toggle="modal" data-bs-target="#studentLanguageModal"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger btn-sm" title="Sil" (click)="studentLanguageDelete(item)"><i
+                    class="fas fa-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        Öğrenci Program Bilgileri
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row col-12">
+          <div class="col-10">
+            <button class="btn btn-primary mr-2 btn-sm" title="Yeni Ekle" data-bs-toggle="modal"
+              data-bs-target="#studentProgrammingModal" (click)="clearStudentProgramming()"><i
+                class="fas fa-plus"></i></button>
+          </div>
+          <div class="col-2">
+            <input type="text" class="form-control" [(ngModel)]="filterTextProgramming"
+              [ngModelOptions]="{standalone:true}">
+          </div>
+        </div>
+        <table class="table table-stripped table-hovered mt-2" style="text-align: center;">
+          <thead>
+            <tr>
+              <th>Program Adı</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of studentProgrammings | studentProgrammingPipe : filterTextProgramming">
+              <td>{{item.programmingName}}</td>
+              <td>
+                <button class="btn btn-warning btn-sm mr-2" title="Düzenle" (click)="getStudentProgramming(item.id)"
+                  data-bs-toggle="modal" data-bs-target="#studentProgrammingModal"><i class="fas fa-edit"></i></button>
+                <button class="btn btn-danger btn-sm" title="Sil" (click)="studentProgrammingDelete(item)"><i
+                    class="fas fa-trash"></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        Öğrenci Ders Bilgileri
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row col-12">
+          <div class="col-10">
+            <button class="btn btn-primary mr-2 btn-sm" title="Yeni Ekle" data-bs-toggle="modal"
+              data-bs-target="#studentLessonModal" (click)="clearStudentLesson()"><i class="fas fa-plus"></i></button>
+          </div>
+          <div class="col-2 mb-1">
+            <input type="text" class="form-control" placeholder="Ders Ara.." [(ngModel)]="filterTextLesson"
+              [ngModelOptions]="{standalone:true}">
+          </div>
+        </div>
+
+        <div class="card card-primary card-outline card-outline-tabs">
+          <div class="card-header p-0 border-bottom-0 d-flex justify-content-between align-items-center">
+            <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+              <li class="nav-item" *ngFor="let semester of semesters">
+                <a class="nav-link" [class.active]="selectedSemesterId === semester.id"
+                  [attr.id]="'custom-tabs-four-' + semester.name + '-tab'" data-toggle="pill"
+                  [attr.href]="'#custom-tabs-four-' + semester.name" role="tab"
+                  [attr.aria-controls]="'custom-tabs-four-' + semester.name"
+                  [attr.aria-selected]="selectedSemesterId === semester.id" (click)="selectSemester(semester.id)">{{
+                  semester.name }}</a>
+              </li>
+            </ul>
+            <div class="ml-auto mt-4 mr-5">
+              <ul class="nav">
+                <li class="nav-item" *ngFor="let period of periods">
+                  <label class="nav-link">
+                    <input type="radio" name="periodSelection" [(ngModel)]="selectedPeriod" [value]="period.id"
+                      (change)="updateSelectedPeriod(period.id)">
+                    {{ period.name }}
+                  </label>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="tab-content" id="custom-tabs-four-tabContent">
+              <ng-container *ngFor="let semester of semesters">
+                <div class="tab-pane fade" [class.show]="selectedSemesterId === semester.id"
+                  [class.active]="selectedSemesterId === semester.id" [attr.id]="'custom-tabs-four-' + semester.name"
+                  role="tabpanel" [attr.aria-labelledby]="'custom-tabs-four-' + semester.name + '-tab'">
+                  <table class="table table-stripped table-hovered mt-2" style="text-align: center;">
+                    <thead>
+                      <tr>
+                        <th>Ders Kodu</th>
+                        <th>Ders Adı</th>
+                        <th>Kredi</th>
+                        <th>AKTS</th>
+                        <!-- <th>Sınıf</th> -->
+                        <th>Bölümü</th>
+                        <th>Ortalaması</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of studentLessons | studentLessonPipe : filterTextLesson">
+                        <ng-container
+                          *ngIf="(selectedSemesterId === 0 || item.semesterId === selectedSemesterId) && (selectedPeriod === null || item.isSpring === (selectedPeriod === 2))">
+                          <td>{{item.code}}</td>
+                          <td>{{item.name}}</td>
+                          <td>{{item.credit}}</td>
+                          <td>{{item.akts}}</td>
+                          <!-- <td *ngIf="item.semesterId==1">Hazırlık</td>
+                          <td *ngIf="item.semesterId==2">1</td>
+                          <td *ngIf="item.semesterId==3">2</td>
+                          <td *ngIf="item.semesterId==4">3</td>
+                          <td *ngIf="item.semesterId==5">4</td> -->
+
+                          <td>{{item.departmentName}}</td>
+                          <th>{{item.average==null? "--": item.average}}</th>
+                          <td>
+                            <button class="btn btn-warning btn-sm mr-2" title="Düzenle"
+                              (click)="getStudentLesson(item.id)" data-bs-toggle="modal"
+                              data-bs-target="#studentLessonModal"><i class="fas fa-edit"></i></button>
+                            <button class="btn btn-danger btn-sm" title="Sil" (click)="studentLessonDelete(item)"><i
+                                class="fas fa-trash"></i></button>
+                          </td>
+                        </ng-container>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</div>
+
+
+<div class="modal fade" #studentProgrammingModal id="studentProgrammingModal" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Program</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="clearStudentProgramming()"></button>
+      </div>
+      <form #studentProgrammingForm="ngForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="selectPersonel">Program Seçin</label>
+            <ngx-select [formControl]="selectStudentProgramming" [allowClear]="true" [items]="mappedProgramming"
+              optionValueField="optionId" optionTextField="optionTitle" (ngModelChange)="changeProgrammingId()"
+              placeholder="Program Seçin">
+            </ngx-select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Çıkış"
+            (click)="clearStudentProgramming()"><i class="fas fa-times"></i></button>
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal" title="Kaydet"
+            (click)="saveStudentProgramming()" [disabled]="!studentProgrammingForm.valid"><i
+              class="fas fa-check"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" #studentInterestModal id="studentInterestModal" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">İlgi Alanı</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="clearStudentInterest()"></button>
+      </div>
+      <form #studentInterestForm="ngForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="selectInterest">İlgi Alanı Seçin</label>
+
+            <ngx-select [formControl]="selectStudentInterest" [allowClear]="true" [items]="mappedInterest"
+              optionValueField="optionId" optionTextField="optionTitle" (ngModelChange)="changeInterestId()"
+              placeholder="İlgi Alanı Seçin">
+            </ngx-select>
+
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Çıkış"
+            (click)="clearStudentInterest()"><i class="fas fa-times"></i></button>
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal" title="Kaydet"
+            (click)="saveStudentInterest()" [disabled]="!studentInterestForm.valid"><i
+              class="fas fa-check"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" #studentLanguageModal id="studentLanguageModal" tabindex="-1"
+  aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Dil</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="clearStudentLanguage()"></button>
+      </div>
+      <form #studentLanguageForm="ngForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="selectInterest">Dil Seçin</label>
+
+            <ngx-select [formControl]="selectStudentLanguage" [allowClear]="true" [items]="mappedLanguage"
+              optionValueField="optionId" optionTextField="optionTitle" (ngModelChange)="changeLanguageId()"
+              placeholder="Dil Seçin">
+            </ngx-select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Çıkış"
+            (click)="clearStudentLanguage()"><i class="fas fa-times"></i></button>
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal" title="Kaydet"
+            (click)="saveStudentLanguage()" [disabled]="!studentLanguageForm.valid"><i
+              class="fas fa-check"></i></button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" #studentLessonModal id="studentLessonModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+  aria-hidden="true" data-bs-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Ders</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="clearStudentLesson()"></button>
+      </div>
+      <form #studentLessonForm="ngForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="selectInterest">Ders Seçin</label>
+
+            <ngx-select [formControl]="selectStudentLesson" [allowClear]="true" [items]="mappedLesson"
+              optionValueField="optionId" optionTextField="optionTitle" (ngModelChange)="changeLessonId()"
+              placeholder="Ders Seçin">
+            </ngx-select>
+            <div class="form-group mt-2">
+              <label for="midternExam">Vize</label>
+              <input type="number" class="form-control" id="midternExam" name="midternExam"
+                [(ngModel)]="studentLesson.midtern">
+            </div>
+
+            <div class="form-group">
+              <label for="project">Proje</label>
+              <input type="number" class="form-control" id="project" name="project"
+                [(ngModel)]="studentLesson.project">
+            </div>
+            <div class="form-group">
+              <label for="quiz">Quiz</label>
+              <input type="number" class="form-control" id="quiz" name="quiz"
+                [(ngModel)]="studentLesson.quiz">
+            </div>
+
+            <div class="form-group">
+              <label for="finalExam">Final</label>
+              <input type="number" class="form-control" id="finalExam" name="finalExam"
+                [(ngModel)]="studentLesson.final">
+            </div>
+
+            <div class="form-group">
+              <label for="average">Ortalama</label>
+              <input type="number" class="form-control" id="average" name="average"
+                [(ngModel)]="studentLesson.average">
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Çıkış"
+            (click)="clearStudentLesson()"><i class="fas fa-times"></i></button>
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal" title="Kaydet"
+            (click)="saveStudentLesson()" [disabled]="!studentLessonForm.valid"><i class="fas fa-check"></i></button>
+        </div>
+      </form>
+      <!-- <form #studentLessonInformationForm="ngForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="selectInterest">Ders Seçin</label>
+
+            <ngx-select [formControl]="selectStudentLesson" [allowClear]="true" [items]="mappedLesson"
+              optionValueField="optionId" optionTextField="optionTitle" (ngModelChange)="changeLessonId()"
+              placeholder="Ders Seçin">
+            </ngx-select>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Çıkış"
+            (click)="clearStudentLesson()"><i class="fas fa-times"></i></button>
+          <button type="button" class="btn btn-success" data-bs-dismiss="modal" title="Kaydet"
+            (click)="saveStudentLesson()" [disabled]="!studentLessonForm.valid"><i class="fas fa-check"></i></button>
+        </div>
+      </form> -->
+    </div>
+  </div>
+</div>

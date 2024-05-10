@@ -1,0 +1,54 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Bölüm İşlem Sayfası</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Ana Sayfa</a></li>
+            <li class="breadcrumb-item"><a routerLink="/department/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Bölüm Listesi</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="content">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-tools">
+          <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+            <i class="fas fa-minus"></i>
+          </button>
+          <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <form #departmentForm="ngForm">
+        <div class="card-body">
+          <div class="form-group mb-2">
+            <label for="">Bölüm Adı</label>
+            <input type="text" class="form-control" name="txtName" [(ngModel)]="department.name" #txtName="ngModel" required>
+            <small class="text-danger" *ngIf="txtName.invalid && txtName.touched">Zorunlu Alan</small>
+          </div>
+          <div class="form-group mb-2">
+            <label for="">Fakülte</label>
+            <select name="slcFaculty" class="form-control form-select" [(ngModel)]="department.facultyId" #slcFaculty="ngModel" required>
+              <option *ngFor="let item of faculties" value="{{item.id}}">{{item.name}}</option>
+            </select>
+            <small class="text-danger" *ngIf="slcFaculty.invalid && slcFaculty.touched">Zorunlu Alan</small>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div style="display:flex;justify-content: end;">
+            <button class="btn btn-success btn-sm" title="Kaydet" [disabled]="!departmentForm.form.valid" (click)="save()"><i
+                class="fas fa-check"></i></button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,91 @@
+<div class="content-wrapper">
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Şirket İşlem Sayfası</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Ana Sayfa</a></li>
+              <li class="breadcrumb-item"><a routerLink="/company/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Şirket Listesi</a></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+              <i class="fas fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+        </div>
+        <form #companyForm="ngForm">
+          <div class="card-body">
+            <div class="form-group mb-2">
+              <label for="">Şirket Adı</label>
+              <input type="text" class="form-control" name="txtName" [(ngModel)]="company.name" #txtName="ngModel" required>
+              <small class="text-danger" *ngIf="txtName.invalid && txtName.touched">Zorunlu Alan</small>
+            </div>
+            <div class="form-group mb-2">
+                <label for="">Sektörü</label>
+                <!-- <input type="text" class="form-control" name="txtSector" [(ngModel)]="company.sector" #txtSector="ngModel" required> -->
+                <ngx-select #txtSector class="form-control p-0" [formControl]="selectControlSector" [allowClear]="true" [items]="mappedSectors"
+                optionValueField="optionId" optionTextField="optionTitle" (ngModelChange)="changeSectorId()"
+                placeholder="Sektör Seçin" required> 
+              </ngx-select>
+                <small class="text-danger" *ngIf="company.sectorId == undefined">Zorunlu Alan</small>
+              </div>
+              <div class="form-group mb-2">
+                <label for="">Web Sayfası</label>
+                <input type="text" class="form-control" name="txtWebPage" [(ngModel)]="company.webPage" #txtWebPage="ngModel" required>
+                <small class="text-danger" *ngIf="txtWebPage.invalid && txtWebPage.touched">Zorunlu Alan</small>
+              </div>
+              <div class="form-group mb-2">
+                <label for="">Sorumlu Adı</label>
+                <input type="text" class="form-control" name="txtResponsibleName" [(ngModel)]="company.responsibleName" #txtResponsibleName="ngModel" required>
+                <small class="text-danger" *ngIf="txtResponsibleName.invalid && txtResponsibleName.touched">Zorunlu Alan</small>
+              </div>
+              <div class="form-group mb-2">
+                <label for="">Sorumlu Numarası</label>
+                <input type="text" class="form-control" name="txtResponsiblePhoneNumber" [(ngModel)]="company.responsiblePhoneNumber" #txtResponsiblePhoneNumber="ngModel" required>
+                <small class="text-danger" *ngIf="txtResponsiblePhoneNumber.invalid && txtResponsiblePhoneNumber.touched">Zorunlu Alan</small>
+              </div>
+              <div class="form-group mb-2">
+                <label for="">Telefon Numarası</label>
+                <input type="text" class="form-control" name="txtPhoneNumber" [(ngModel)]="company.phoneNumber" #txtPhoneNumber="ngModel" required>
+                <small class="text-danger" *ngIf="txtPhoneNumber.invalid && txtPhoneNumber.touched">Zorunlu Alan</small>
+              </div>
+              <div class="form-group mb-2">
+                <label for="">Adresi</label>
+                <input type="text" class="form-control" name="txtAddress" [(ngModel)]="company.address" #txtAddress="ngModel" required>
+                <small class="text-danger" *ngIf="txtAddress.invalid && txtAddress.touched">Zorunlu Alan</small>
+              </div>
+              <div class="form-group mb-2">
+                <label for="">Protokol Personel</label>
+                <input type="text" class="form-control" name="txtProtocolPersonel" [(ngModel)]="company.protocolPersonel" #txtProtocolPersonel="ngModel" required>
+                <small class="text-danger" *ngIf="txtProtocolPersonel.invalid && txtProtocolPersonel.touched">Zorunlu Alan</small>
+              </div>
+              <div class="form-group mb-2">
+                <label for="">Protokol Tarihi</label>
+                <input type="datetime-local" class="form-control" name="txtProtocolDate" [(ngModel)]="company.protocolDate" #txtProtocolDate="ngModel" required>
+                <small class="text-danger" *ngIf="txtProtocolDate.invalid && txtProtocolDate.touched">Zorunlu Alan</small>
+              </div>
+          </div>
+          <div class="card-footer">
+            <div style="display:flex;justify-content: end;">
+              <button class="btn btn-success btn-sm" title="Kaydet" [disabled]="!companyForm.form.valid || company.sectorId == undefined" (click)="save()"><i
+                  class="fas fa-check"></i></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>

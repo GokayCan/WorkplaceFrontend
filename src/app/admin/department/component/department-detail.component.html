@@ -1,0 +1,188 @@
+<div class="content-wrapper">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Bölüm Detay Sayfası</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a routerLink="/home" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{exact:true}">Ana Sayfa</a></li>
+                        <li class="breadcrumb-item"><a routerLink="/department/" routerLinkActive="active"
+                                [routerLinkActiveOptions]="{exact:true}">Bölüm Derslerinin Listesi</a></li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content">
+        <div class="card-body">
+            <div class="row col-12">
+                <div class="col-10">
+                    <button class="btn btn-primary mr-2 btn-sm" title="Yeni Ekle" data-bs-toggle="modal"
+                        data-bs-target="#lessonModal" (click)="clearLesson()"><i class="fas fa-plus"></i></button>
+                </div>
+                <div class="col-2 mb-1">
+                    <input type="text" class="form-control" placeholder="Ders Ara.." [(ngModel)]="filterTextLesson"
+                        [ngModelOptions]="{standalone:true}">
+                </div>
+            </div>
+
+            <div class="card card-primary card-outline card-outline-tabs">
+                <div class="card-header p-0 border-bottom-0 d-flex justify-content-between align-items-center">
+                    <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                        <li class="nav-item" *ngFor="let semester of semesters">
+                            <a class="nav-link" [class.active]="selectedSemesterId === semester.id"
+                                [attr.id]="'custom-tabs-four-' + semester.name + '-tab'" data-toggle="pill"
+                                [attr.href]="'#custom-tabs-four-' + semester.name" role="tab"
+                                [attr.aria-controls]="'custom-tabs-four-' + semester.name"
+                                [attr.aria-selected]="selectedSemesterId === semester.id"
+                                (click)="selectSemester(semester.id)">{{
+                                semester.name }}</a>
+                        </li>
+                    </ul>
+                    <div class="ml-auto mt-4 mr-5">
+                        <ul class="nav">
+                            <li class="nav-item" *ngFor="let period of periods">
+                                <label class="nav-link">
+                                    <input type="radio" name="periodSelection" [(ngModel)]="selectedPeriod"
+                                        [value]="period.id" (change)="updateSelectedPeriod(period.id)">
+                                    {{ period.name }}
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content" id="custom-tabs-four-tabContent">
+                        <ng-container *ngFor="let semester of semesters">
+                            <div class="tab-pane fade" [class.show]="selectedSemesterId === semester.id"
+                                [class.active]="selectedSemesterId === semester.id"
+                                [attr.id]="'custom-tabs-four-' + semester.name" role="tabpanel"
+                                [attr.aria-labelledby]="'custom-tabs-four-' + semester.name + '-tab'">
+                                <table class="table table-stripped table-hovered mt-2" style="text-align: center;">
+                                    <thead>
+                                        <tr>
+                                            <th>Ders Kodu</th>
+                                            <th>Ders Adı</th>
+                                            <th>Kredi</th>
+                                            <th>AKTS</th>
+                                            <th>Ders Hocası</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of lessons | departmentLesson : filterTextLesson">
+                                            <ng-container
+                                                *ngIf="(selectedSemesterId === 0 || item.semesterId === selectedSemesterId) && (selectedPeriod === null || item.isSpring === (selectedPeriod === 2))">
+                                                <td>{{item.code}}</td>
+                                                <td>{{item.name}}</td>
+                                                <td>{{item.credit}}</td>
+                                                <td>{{item.akts}}</td>
+                                                <td>{{item.stuffName}}</td>
+                                                <td>
+                                                    <button class="btn btn-warning btn-sm mr-2" title="Düzenle"
+                                                        (click)="getLesson(item.id)" data-bs-toggle="modal"
+                                                        data-bs-target="#lessonModal"><i
+                                                            class="fas fa-edit"></i></button>
+                                                    <button class="btn btn-danger btn-sm" title="Sil"
+                                                        (click)="lessonDelete(item)"><i
+                                                            class="fas fa-trash"></i></button>
+                                                </td>
+                                            </ng-container>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+</div>
+
+
+
+
+<div class="modal fade" #lessonModal id="lessonModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Ders</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="clearLesson()"></button>
+            </div>
+            <form #lessonForm="ngForm">
+                <div class="modal-body">
+                    <div class="form-group mb-2">
+                        <label for="">Ders Adı</label>
+                        <input type="text" class="form-control" name="txtName" [(ngModel)]="lesson.name"
+                            #txtName="ngModel" required>
+                        <small class="text-danger" *ngIf="txtName.invalid && txtName.touched">Zorunlu Alan</small>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="">Ders Kodu</label>
+                        <input type="text" class="form-control" name="txtCode" [(ngModel)]="lesson.code"
+                            #txtCode="ngModel" required>
+                        <small class="text-danger" *ngIf="txtCode.invalid && txtCode.touched">Zorunlu Alan</small>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="">Kredi</label>
+                        <input type="number" class="form-control" name="txtCredit" [(ngModel)]="lesson.credit"
+                            #txtCredit="ngModel" required>
+                        <small class="text-danger" *ngIf="txtCredit.invalid && txtCredit.touched">Zorunlu Alan</small>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="">Akts</label>
+                        <input type="number" class="form-control" name="txtAkts" [(ngModel)]="lesson.akts"
+                            #txtAkts="ngModel" required>
+                        <small class="text-danger" *ngIf="txtAkts.invalid && txtAkts.touched">Zorunlu Alan</small>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="">Ders Hocası Seçiniz</label>
+                        <select name="slcStaff" class="form-control form-select" [(ngModel)]="lesson.stuffId"
+                            #slcStaff="ngModel" required>
+                            <option *ngFor="let item of staffs" value="{{item.id}}">{{item.firstName}} {{item.lastName}}
+                            </option>
+                        </select>
+                        <small class="text-danger" *ngIf="slcStaff.invalid && slcStaff.touched">Zorunlu
+                            Alan</small>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="">Dönem Seçiniz</label>
+                        <select name="slcSemester" class="form-control form-select" [(ngModel)]="lesson.semesterId"
+                            #slcSemester="ngModel" required>
+                            <option *ngFor="let item of semesters" value="{{item.id}}">{{item.name}}</option>
+                        </select>
+                        <small class="text-danger" *ngIf="slcSemester.invalid && slcSemester.touched">Zorunlu
+                            Alan</small>
+                    </div>
+                    <div class="form-group mb-2">
+                        <label for="">Yarıyıl Seçiniz</label>
+                        <select name="slcPeriod" class="form-control form-select" [(ngModel)]="periodNumber"
+                            #slcPeriod="ngModel" required>
+                            <option *ngFor="let item of periodsForSelect" value="{{item.id}}">{{item.name}}</option>
+
+                        </select>
+                        <small class="text-danger" *ngIf="slcPeriod.invalid && slcPeriod.touched">Zorunlu Alan</small>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" title="Çıkış"
+                        (click)="clearLesson()"><i class="fas fa-times"></i></button>
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal" title="Kaydet"
+                        (click)="saveLesson()" [disabled]="!lessonForm.valid"><i class="fas fa-check"></i></button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

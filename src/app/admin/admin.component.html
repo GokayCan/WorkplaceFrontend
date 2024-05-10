@@ -1,0 +1,68 @@
+<div class="content-wrapper">
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1>Ana Sayfa</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Ana Sayfa</a></li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-lg-6 col-6">
+          <div class="small-box bg-success">
+            <div class="inner">
+              <h3>{{numberOfCompany}}</h3>
+              <p>Firma Sayısı</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-chalkboard-user"></i>
+            </div>
+            <a routerLink="/company" class="small-box-footer">Detay <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-6 col-6">
+          <div class="small-box bg-warning">
+            <div class="inner">
+              <h3>{{numberOfStudent}}</h3>
+              <p>Öğrenci Sayısı</p>
+            </div>
+            <div class="icon">
+              <i class="fas fa-graduation-cap"></i>
+            </div>
+            <a routerLink="/student" class="small-box-footer">Detay <i class="fas fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+                  <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row col-12">
+                <full-calendar [options]="calendarOptions"></full-calendar>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
